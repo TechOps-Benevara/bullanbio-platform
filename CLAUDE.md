@@ -34,6 +34,21 @@ a failure. A wrong guess that reaches production is far more expensive than a qu
 
 ---
 
+## Code style & craft (write like an experienced senior engineer)
+
+Code is read far more often than it is written. Optimise for the next reader.
+
+- **Simple over clever.** Write the most obvious code that works. Clarity beats cleverness; if a line needs a comment to be understood, prefer rewriting it to be clear.
+- **Short, focused units.** Small functions with one responsibility; early returns over deep nesting; keep files cohesive. If a function does many things, split it.
+- **Concise, not cryptic.** Remove words/lines that add nothing, but never sacrifice readability for brevity. Name things precisely (`pendingDealers`, not `data2`); a good name removes the need for a comment.
+- **Follow the existing grain.** Match the patterns, structure, and formatting already in the codebase (the Sprint 1 packages set the house style). Respect ESLint/Prettier — never fight the formatter.
+- **DRY with judgement.** Reuse and extract helpers when it earns its keep; do not abstract on the first repeat. Avoid premature generalisation (see "right-size it").
+- **Efficient by default, not prematurely.** Avoid obvious waste — N+1 queries, redundant fetches/re-renders, unnecessary loops — but get it correct and readable first; micro-optimise only with a measured reason.
+- **Explicit error & edge handling.** No silent failures, no empty catches. Validate inputs; handle the null/empty/error path deliberately.
+- **Leave nothing behind.** No dead code, commented-out blocks, stray `console.log`, or leftover TODOs in shipped code. Comments explain *why*, never restate *what*. Keep diffs small and on-topic.
+
+---
+
 ## Non-negotiable rules
 
 1. **TypeScript strict.** No `any` without a written reason. DB row types must match TECH-05 exactly.
