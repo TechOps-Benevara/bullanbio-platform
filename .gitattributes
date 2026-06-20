@@ -1,0 +1,23 @@
+# ─── Line-ending normalisation ──────────────────────────────
+# Store everything as LF in the repository; check out native where
+# unspecified. This keeps history consistent across Windows/macOS/Linux
+# and silences the "LF will be replaced by CRLF" warning.
+* text=auto eol=lf
+
+# Windows-only scripts must keep CRLF to run correctly
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+*.ps1   text eol=crlf
+
+# ─── Binary files — never alter ─────────────────────────────
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.pdf   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary
