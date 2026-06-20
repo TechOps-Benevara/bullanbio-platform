@@ -76,21 +76,19 @@ See [`CONTRIBUTING.md`](./docs/CONTRIBUTING.md). In short: `main` = production, 
 
 ```
 bullanbio-platform/
-├── app/
-│   ├── api/                # API routes (auth, dealers, webhooks, …)
-│   ├── (pages)/            # login, register, dealer/*, admin/*
-│   └── layout.tsx
 ├── src/
+│   ├── app/                # App Router — pages + api/ (auth, dealers, webhooks)
 │   ├── lib/                # env, supabase, rate-limit, encryption, utils
 │   ├── schemas/            # Zod validation schemas
 │   ├── components/         # ui/, auth/, layout/
-│   └── middleware.ts       # route protection + security headers
+│   ├── middleware.ts       # Clerk route protection + security headers
+│   └── __tests__/          # Jest unit tests
 ├── e2e/                    # Playwright tests
-├── src/__tests__/          # Jest unit tests
-├── docs/                   # CONTRIBUTING.md, DEVELOPMENT_ROADMAP.md, mirrored specs
-├── .env.example
-├── CLAUDE.md
-└── README.md
+├── supabase/migrations/    # 0001_schema.sql, 0002_rls.sql
+├── docs/                   # roadmap, CONTRIBUTING, RBAC, DECISIONS, specs/
+├── public/
+├── .env.example · .nvmrc · CLAUDE.md · README.md
+└── (config: package.json · tsconfig.json · next.config.* · tailwind.config.ts)
 ```
 
 ---

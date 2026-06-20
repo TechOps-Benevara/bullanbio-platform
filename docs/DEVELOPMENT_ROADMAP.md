@@ -232,6 +232,15 @@ Initialise `@sentry/nextjs` (client + server) so errors during Sprints 1–5 are
 10. **F5:** add a scheduled job (Vercel Cron or Supabase `pg_cron`) for document reminders (day 3 / day 6) and auto-archive (day 7). These are part of the registration flow and must run.
 11. Land the **Jest** (Package 3) and **Playwright** (Package 4) suites; make them green.
 
+**Integration notes — from the Sprint 1 code review (close these while wiring up the packages).**
+The four Sprint 1 packages are production-grade and are the source for this phase, but the review found small gaps to close during integration:
+
+1. **`ON DELETE CASCADE` must exist on the schema.** `api/dealers/register/route.ts` rolls back a failed registration by deleting the `tenants` row and relies on the FK cascade to remove the `dealer_profiles` and `tenant_users` rows. `supabase/migrations/0001_schema.sql` defines these cascades — confirm they are applied before testing registration rollback.
+2. **Make `ENCRYPTION_KEY` a required env var.** It is not in `src/lib/env.ts`'s required list, and `safeEncrypt()` returns `null` silently on failure — a missing key would store an empty NRIC/passport without error. Add `ENCRYPTION_KEY` to the required list (or fail hard for that field).
+3. **Verify the verification email actually sends.** The register route assumes Clerk emails the verification link automatically on backend `createUser` — that is not guaranteed. Confirm the trigger works, and that the `/api/auth/resend-verification` fallback delivers.
+4. **F1 / service-role.** The Sprint 1 routes use `supabaseAdmin` (service-role, bypasses RLS) — appropriate for registration and webhooks, but it does not satisfy tenant isolation on read paths. Gate A still governs reads.
+5. **F4 rate limiting.** The in-memory limiter is fine for this phase; move it to a shared store before relying on it for brute-force protection (Sprint 5 hardening).
+
 **Definition of Done.** Every item in the FEAT-01 Sprint 1 checklist (37 items) passes on the live site; Jest + Playwright green; reviewed by Benny + Jessica on bullanbio.com; milestone **M2** recorded.
 
 ---

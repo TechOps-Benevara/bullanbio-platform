@@ -10,10 +10,10 @@ Internal working agreement for this repository. Keep it simple; the team is smal
 | `develop` | Integration / staging. | staging.bullanbio.com |
 | `feature/<name>` | One feature or fix at a time. | Vercel preview |
 
-- Branch off `develop` for new work: `git checkout -b feature/dealer-registration`.
-- Open a pull request into `develop`. Test on the staging preview.
-- Promote `develop` → `main` only after the sprint review is approved by Benny + Jessica.
-- **Never push directly to `main`** without it passing through `develop` first.
+- `develop` is the active development branch; `main` is the release branch (always reflects production).
+- Branch off `develop` for new work: `git checkout -b feature/dealer-registration`. Open a pull request into `develop`. Test on the staging preview.
+- **Promote `develop` → `main` only via a Pull Request, and only when the work is stable AND the end-to-end (Playwright) tests pass**, plus the sprint review sign-off from Benny + Jessica.
+- **Never commit or push directly to `main`.** It only ever changes through a reviewed, E2E-passing PR from `develop`.
 
 ## Commit messages
 

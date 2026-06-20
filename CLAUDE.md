@@ -48,8 +48,11 @@ a failure. A wrong guess that reaches production is far more expensive than a qu
 6. **Server-side authorisation everywhere.** Enforce the FEAT-02 permission matrix inside API
    routes, not just by hiding UI. Middleware is a first line of defence, not the only one.
 7. **Don't change the approved UI designs** (`05 - Design and Frontend`) without Benny's sign-off.
-8. **Branch/commit discipline.** Work on `feature/<name>` off `develop`; PR into `develop`;
-   promote to `main` only after sprint sign-off. Commits: `feat: / fix: / docs: / test: / chore:`.
+8. **Branch/commit discipline — `develop` is the development branch; `main` is the release branch.**
+   - Do all development on `develop` (branch `feature/<name>` off `develop` for individual work, PR back into `develop`).
+   - **Never commit or push directly to `main`.** `main` always reflects what is live in production.
+   - Merge `develop` → `main` **only via a Pull Request**, and **only when the work is stable AND the end-to-end (Playwright) tests pass** — plus the sprint sign-off from Benny + Jessica.
+   - Commit message prefixes: `feat: / fix: / docs: / test: / chore:`.
 
 ---
 
@@ -93,8 +96,13 @@ reviewed · deployed to `develop` (staging) · included in the sprint review.
 
 ## Key references
 
+- `docs/README.md` — index of all in-repo docs (start here to navigate).
 - `docs/DEVELOPMENT_ROADMAP.md` — phased build plan (Phase 0 → Sprints 1–5), Decision Gates, findings tracker.
+- `docs/DECISIONS.md` — ADR log; the three open Decision Gates (A/B/C) live here. Record decisions here.
+- `docs/RBAC-matrix.md` — 10 roles, permission matrices, token claims.
+- `docs/specs/FEAT-01-auth.md`, `docs/specs/FEAT-02-admin.md`, `docs/specs/order-status-flow.md` — feature specs (mirrors).
+- `supabase/migrations/0001_schema.sql` (tables) and `0002_rls.sql` (RLS — apply only after Gate A/B).
 - `docs/CONTRIBUTING.md` — branch strategy, commit format.
 - `.env.example` — environment variables (names match `src/lib/env.ts`).
 - TECH-REVIEW-01 (Digital Platform folder) — open architecture findings F1–F11.
-- TECH-01…05, FEAT-01/02, MAN-01 — authoritative product & technical specs.
+- TECH-01…05, FEAT-01/02, MAN-01 — authoritative product & technical specs (docx; mirrors of the build-relevant parts are under `docs/`).
